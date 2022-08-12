@@ -1,0 +1,25 @@
+recovery_only(`
+  allow recovery sysfs_ota:file rw_file_perms;
+  allow recovery secure_element_device:chr_file rw_file_perms;
+  allow citadeld rootfs:file { map read execute open getattr entrypoint execute_no_trans };
+  allow hal_keymint_citadel rootfs:file { map read execute open getattr };
+  allow hal_identity_citadel rootfs:file { map read execute open getattr };
+  allow hal_weaver_citadel rootfs:file { entrypoint };
+  allow hal_identity_citadel rootfs:file { entrypoint };
+  allow hal_keymint_default rootfs:file { map read execute open getattr };
+  allow hal_weaver_citadel rootfs:file { map read execute open getattr };
+  allow citadeld recovery:binder { call transfer };
+  allow citadeld citadeld:binder { call transfer };
+  allow hal_keymint_citadel recovery:binder { call transfer };
+  allow recovery hal_weaver_citadel:binder { call transfer };
+  allow recovery hal_keymint_citadel:binder { call transfer };
+  allow recovery recovery:binder { call transfer };
+  allow recovery hal_identity_citadel:binder { call transfer };
+  allow recovery citadeld:binder { call transfer };
+  allow citadeld default_android_vndservice:service_manager { find };
+  allow hal_keymint_citadel default_android_vndservice:service_manager { add };
+  allow hal_identity_citadel default_android_vndservice:service_manager { add find };
+  allow hal_keymint_default recovery:binder { call transfer };
+  allow hal_identity_citadel recovery:binder { call transfer };
+  allow hal_weaver_citadel recovery:binder { call transfer };
+')
